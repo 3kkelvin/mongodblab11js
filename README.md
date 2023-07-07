@@ -1,4 +1,4 @@
 # MongoDB Lab11
 
-這是一個README.md檔案
-以下要描述專案的內容。
+這個專案是mongodb入門與活動Lab11的nodejs版本
+以及對應的前端網頁
