@@ -1,15 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!--調用這個組件-->
+  <crudForm msg="前端網頁實作vue"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import crudForm from './components/crudForm.vue'
+//聲明自己的名字跟用到的組件
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    crudForm
   }
 }
 </script>

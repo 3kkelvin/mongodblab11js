@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>前端網頁實作</title>
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>前端網頁實作</h1>
+
+  <ul>
+    <li><a href="#" id="addMember" onclick="showAddMemberForm()">新增會員</a></li>
+    <li><a href="#" id="getAllMembers" onclick="findAll()">查詢所有會員</a></li>
+    <li><a href="#" id="getMember" onclick="showFindOneForm()">查詢單一會員</a></li>
+    <li><a href="#" id="updateMember" onclick="showUpdateMemberForm()">修改會員資料</a></li>
+    <li><a href="#" id="deleteMember" onclick="showDeleteMemberForm()">刪除會員資料</a></li>
+  </ul>
+
+  <div id="result"></div>
+  <div id="addMemberForm" style="display: none;">
+    <h2>新增會員</h2>
+    <input type="text" id="adduid" placeholder="會員編號">
+    <br>
+    <input type="text" id="addname" placeholder="會員姓名">
+    <br>
+    <input type="text" id="addphone" placeholder="會員電話">
+    <br>
+    <button onclick="submitAddMember()">送出</button>
+    <br>
+    <p id="addMemberMessage"></p>
+  </div>
+
+  <div id="findAllForm" style="display: none;">
+    <h2>查詢會員</h2>
+    <p id="findAllMessage"></p>
+    <div id="memberContainer"></div>
+  </div>
+  
+  <div id="findOneForm" style="display: none;">
+    <h2>查詢單一會員</h2>
+    <input type="text" id="finduid" placeholder="會員編號">
+    <br>
+    <button onclick="findOne()">送出</button>
+    <br>
+    <p id="findOneMessage"></p>
+  </div>
+
+  <div id="updateMemberForm" style="display: none;">
+    <h2>修改會員資料</h2>
+    <input type="text" id="updateuid" placeholder="會員編號">
+    <br>
+    <input type="text" id="updatename" placeholder="會員姓名">
+    <br>
+    <input type="text" id="updatephone" placeholder="會員電話">
+    <br>
+    <button onclick="submitUpdateMember()">送出</button>
+    <br>
+    <p id="updateMemberMessage"></p>
+  </div>
+
+  <div id="deleteMemberForm" style="display: none;">
+    <h2>刪除會員</h2>
+    <input type="text" id="deleteuid" placeholder="會員編號">
+    <br>
+    <button onclick="deleteMember()">送出</button>
+    <br>
+    <p id="deleteMemberMessage"></p>
+  </div>
+  <script>  
+    
+    document.addEventListener("DOMContentLoaded", function() {//載入完成後確認伺服器狀態
+      fetch("http://localhost:3001/")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("result").innerText = data;
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+    });
+
+    function showAddMemberForm() {//顯示新增會員表單
+      document.getElementById("addMemberForm").style.display = "block";
+    }
+    async function submitAddMember() {//填完表單按送出後
+      const uidValue = document.getElementById("adduid").value;//提取輸入資料
+      const nameValue = document.getElementById("addname").value;
+      const phoneValue = document.getElementById("addphone").value;
+
+      const data = {//編成JSON
+        uid: uidValue,
+        name: nameValue,
+        phone: phoneValue
+      };
+      const response = await fetch('http://localhost:3001/api/member', {//送出
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();//讀取結果
+      if (response.ok) {
+        document.getElementById("addMemberMessage").textContent = `新增會員成功: ${result.insertedId}`;
+      } else {
+        document.getElementById("addMemberMessage").textContent = `新增會員失敗: ${result.error}`;
+      }
+    }
+
+    async function findAll() {//查詢全部會員
+      const response = await fetch('http://localhost:3001/api/member', {//送出
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const result = await response.json();
+      document.getElementById("findAllForm").style.display = "block";
+      if (response.ok) {
+        document.getElementById("findAllMessage").textContent = `現有會員:`;
+        displayMembers(result); // 呼叫 displayMembers 函式顯示會員資料
+      } else {
+        document.getElementById("findAllMessage").textContent = `查詢會員失敗:`;
+      }
+    }
+    function displayMembers(members) {//顯示會員資料
+      const memberContainer = document.getElementById('memberContainer');
+      memberContainer.innerHTML = ''; // 清空容器
+      members.forEach(member => {
+        const memberElement = document.createElement('div');
+        memberElement.innerHTML = `
+          <p>UID: ${member.uid} , Name: ${member.name} , Phone: ${member.phone}</p>
+          <hr>
+        `;
+        memberContainer.appendChild(memberElement);
+      });
+    }
+
+    function showFindOneForm() {//新增會員表單
+      document.getElementById("findOneForm").style.display = "block";
+    } 
+    async function findOne() {//查詢單一會員
+      const uidValue = document.getElementById("finduid").value;//得到uid輸入
+      const response = await fetch(`http://localhost:3001/api/member/${uidValue}`, {//送出
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const result = await response.json();
+      if (response.ok) {
+        document.getElementById("findOneMessage").textContent = `會員${uidValue}:姓名:${result.name},電話:${result.phone}`;
+      } else {
+        document.getElementById("findOneMessage").textContent = `查詢失敗:${result.error}`;
+      }
+    }
+
+    function showDeleteMemberForm() {//刪除會員表單
+      document.getElementById("deleteMemberForm").style.display = "block";
+    } 
+    async function deleteMember() {//刪除會員
+      const uidValue = document.getElementById("deleteuid").value;//得到uid輸入
+      const response = await fetch(`http://localhost:3001/api/member/${uidValue}`, {//送出
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const result = await response.json();
+      if (response.ok) {
+        document.getElementById("deleteMemberMessage").textContent = `會員${uidValue}已成功刪除`;
+      } else {
+        document.getElementById("deleteMemberMessage").textContent = `刪除失敗:${result.error}`;
+      }
+    }
+
+    function showUpdateMemberForm() {//顯示修改會員資料表單
+      document.getElementById("updateMemberForm").style.display = "block";
+    }
+    async function submitUpdateMember() {//填完表單按送出後
+      const uidValue = document.getElementById("updateuid").value;//提取輸入資料
+      const nameValue = document.getElementById("updatename").value;
+      const phoneValue = document.getElementById("updatephone").value;
+
+      const data = {//編成JSON
+        uid: uidValue,
+        name: nameValue,
+        phone: phoneValue
+      };
+      const response = await fetch('http://localhost:3001/api/member', {//送出
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();//讀取結果
+      if (response.ok) {
+        document.getElementById("updateMemberMessage").textContent = `修改會員${uidValue}資料成功`;
+      } else {
+        document.getElementById("updateMemberMessage").textContent = `修改會員資料失敗: ${result.error}`;
+      }
+    }
+    
+      // 繼續監聽其他四個標籤的點擊事件，並進行相應的請求與處理
+      // ...
+
+    
+  </script>
+</body>
+</html>
