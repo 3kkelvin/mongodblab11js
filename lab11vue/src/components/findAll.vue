@@ -28,7 +28,7 @@ return {
 },
 methods: {
     async findAll() {
-        this.allMembers = true;    
+        this.allMembers = ~this.allMembers;    
         const response = await fetch('http://localhost:3001/api/member', {
         method: 'GET',
         headers: {

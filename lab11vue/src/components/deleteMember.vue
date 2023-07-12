@@ -23,7 +23,7 @@ return {
 },
 methods: {
   showDeleteMemberForm() {
-    this.deleteMemberForm = true;
+    this.deleteMemberForm = ~this.deleteMemberForm;
   },
 async deleteMember() {
   const response = await fetch(`http://localhost:3001/api/member/${this.deleteUid}`, {

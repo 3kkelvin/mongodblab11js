@@ -30,7 +30,7 @@ return {
 },
 methods: {
     showAddMemberForm() {
-      this.addMemberForm = true;
+      this.addMemberForm = ~this.addMemberForm;
     },
     async submitAddMember() {
       const response = await fetch('http://localhost:3001/api/member', {

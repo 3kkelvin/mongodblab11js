@@ -23,7 +23,7 @@
   },
     methods: {
     showFindOneForm() {
-      this.findOneForm = true;
+      this.findOneForm = ~this.findOneForm;
     },
     async findOne() {
       const response = await fetch(`http://localhost:3001/api/member/${this.uidValue}`, {
