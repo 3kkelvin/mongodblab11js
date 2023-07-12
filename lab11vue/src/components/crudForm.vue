@@ -8,55 +8,30 @@
     </p>
     <div id="result">{{ serverStatus }}</div>
     <h3>功能選擇</h3>
-    
-    <textTest testmsg="componenttest"/>
     <ul>
-      <findOne /> 
-      <button @click="findAll">查詢所有會員</button>
+      <findOne />
+      <findAll />
       <addMember />
-      <button @click="showUpdateMemberForm">修改會員資料</button>
+      <updateMember />
       <deleteMember />
     </ul>
-
-    <div v-if="showAllMembers">
-      <h2>查詢會員</h2>
-      <p>{{ findAllMessage }}</p>
-      <div id="memberContainer">
-        <div v-for="member in members" :key="member.uid">
-          <p>UID: {{ member.uid }}, Name: {{ member.name }}, Phone: {{ member.phone }}</p>
-          <hr>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="showUpdateMemberForm">
-      <h2>修改會員資料</h2>
-      <input type="text" v-model="updateMember.uid" placeholder="會員編號">
-      <br>
-      <input type="text" v-model="updateMember.name" placeholder="會員姓名">
-      <br>
-      <input type="text" v-model="updateMember.phone" placeholder="會員電話">
-      <br>
-      <button @click="submitUpdateMember">送出</button>
-      <br>
-      <p>{{ updateMemberMessage }}</p>
-    </div>
-
   </div>
 </template>
 
 <script>
 import findOne from './findOne.vue'
+import findAll from './findAll.vue'
 import addMember from './addMember.vue'
+import updateMember from './updateMember.vue'
 import deleteMember from './deleteMember.vue'
-import textTest from './textTest.vue'
 export default {
   name: 'crudForm',
   //調用人的部分
   components: {
     findOne,
-    textTest,
+    findAll,
     addMember,
+    updateMember,
     deleteMember
   },
   //被調用的部分
@@ -66,13 +41,6 @@ export default {
   data() {
     return {
       serverStatus: '',
-      addMemberForm: false,
-      newMember: {
-        uid: '',
-        name: '',
-        phone: ''
-      },
-      addMemberMessage: ''
     };
   },
   mounted() {
@@ -86,24 +54,6 @@ export default {
       });
   },
   methods: {
-    showAddMemberForm() {
-      this.addMemberForm = true;
-    },
-    async submitAddMember() {
-      const response = await fetch('http://localhost:3001/api/member', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.newMember)
-      });
-      const result = await response.json();
-      if (response.ok) {
-        this.addMemberMessage = `新增會員成功: ${result.insertedId}`;
-      } else {
-        this.addMemberMessage = `新增會員失敗: ${result.error}`;
-      }
-    },
   }
 }
 </script>
