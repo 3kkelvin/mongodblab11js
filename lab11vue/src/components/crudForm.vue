@@ -8,10 +8,13 @@
     </p>
     <div id="result">{{ serverStatus }}</div>
     <h3>功能選擇</h3>
+    
+    <textTest testmsg="componenttest"/>
     <ul>
       <button @click="showAddMemberForm">新增會員</button>
       <button @click="findAll">查詢所有會員</button>
-      <button @click="showFindOneForm">查詢單一會員</button>
+      <findOne />
+      <!--button @click="showFindOneForm">查詢單一會員</button-->
       <button @click="showUpdateMemberForm">修改會員資料</button>
       <button @click="showDeleteMemberForm">刪除會員資料</button>
     </ul>
@@ -73,8 +76,15 @@
 </template>
 
 <script>
+import findOne from './findOne.vue'
+import textTest from './textTest.vue'
 export default {
   name: 'crudForm',
+  //調用人的部分
+  components: {
+    findOne,
+    textTest
+  },
   //被調用的部分
   props: {
     msg: String
