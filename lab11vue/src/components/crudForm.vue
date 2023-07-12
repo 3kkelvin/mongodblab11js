@@ -11,24 +11,12 @@
     
     <textTest testmsg="componenttest"/>
     <ul>
-      <findOne /> <!--button @click="showAddMemberForm">新增會員</button-->
+      <findOne /> 
       <button @click="findAll">查詢所有會員</button>
-      <addOne />
+      <addMember />
       <button @click="showUpdateMemberForm">修改會員資料</button>
-      <button @click="showDeleteMemberForm">刪除會員資料</button>
+      <deleteMember />
     </ul>
-    <div v-if=addMemberForm>
-      <h2>新增會員</h2>
-      <input type="text" v-model="newMember.uid" placeholder="會員編號">
-      <br>
-      <input type="text" v-model="newMember.name" placeholder="會員姓名">
-      <br>
-      <input type="text" v-model="newMember.phone" placeholder="會員電話">
-      <br>
-      <button @click="submitAddMember">送出</button>
-      <br>
-      <p>{{ addMemberMessage }}</p>
-    </div>
 
     <div v-if="showAllMembers">
       <h2>查詢會員</h2>
@@ -54,20 +42,13 @@
       <p>{{ updateMemberMessage }}</p>
     </div>
 
-    <div v-if="showDeleteMemberForm">
-      <h2>刪除會員</h2>
-      <input type="text" v-model="deleteUid" placeholder="會員編號">
-      <br>
-      <button @click="deleteMember">送出</button>
-      <br>
-      <p>{{ deleteMemberMessage }}</p>
-    </div>
   </div>
 </template>
 
 <script>
 import findOne from './findOne.vue'
-import addOne from './addOne.vue'
+import addMember from './addMember.vue'
+import deleteMember from './deleteMember.vue'
 import textTest from './textTest.vue'
 export default {
   name: 'crudForm',
@@ -75,7 +56,8 @@ export default {
   components: {
     findOne,
     textTest,
-    addOne
+    addMember,
+    deleteMember
   },
   //被調用的部分
   props: {

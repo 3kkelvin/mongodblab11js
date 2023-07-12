@@ -16,7 +16,7 @@
 
 <script>
 export default {
-name: 'addOne',
+name: 'addMember',
 data() {
 return {
     addMemberForm: false,
