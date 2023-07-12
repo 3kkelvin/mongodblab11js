@@ -11,14 +11,13 @@
     
     <textTest testmsg="componenttest"/>
     <ul>
-      <button @click="showAddMemberForm">新增會員</button>
+      <findOne /> <!--button @click="showAddMemberForm">新增會員</button-->
       <button @click="findAll">查詢所有會員</button>
-      <findOne />
-      <!--button @click="showFindOneForm">查詢單一會員</button-->
+      <addOne />
       <button @click="showUpdateMemberForm">修改會員資料</button>
       <button @click="showDeleteMemberForm">刪除會員資料</button>
     </ul>
-    <div v-if="showAddMemberForm">
+    <div v-if=addMemberForm>
       <h2>新增會員</h2>
       <input type="text" v-model="newMember.uid" placeholder="會員編號">
       <br>
@@ -40,15 +39,6 @@
           <hr>
         </div>
       </div>
-    </div>
-
-    <div v-if=findOneForm>
-      <h2>查詢單一會員</h2>
-      <input type="text" v-model="uidValue" placeholder="會員編號">>
-      <br>
-      <button @click="findOne">送出</button>
-      <br>
-      <p>{{ findOneMessage }}</p>
     </div>
 
     <div v-if="showUpdateMemberForm">
@@ -77,13 +67,15 @@
 
 <script>
 import findOne from './findOne.vue'
+import addOne from './addOne.vue'
 import textTest from './textTest.vue'
 export default {
   name: 'crudForm',
   //調用人的部分
   components: {
     findOne,
-    textTest
+    textTest,
+    addOne
   },
   //被調用的部分
   props: {
@@ -92,9 +84,13 @@ export default {
   data() {
     return {
       serverStatus: '',
-      findOneForm: false,
-      uidValue: '',
-      findOneMessage: ''
+      addMemberForm: false,
+      newMember: {
+        uid: '',
+        name: '',
+        phone: ''
+      },
+      addMemberMessage: ''
     };
   },
   mounted() {
@@ -108,23 +104,24 @@ export default {
       });
   },
   methods: {
-    showFindOneForm() {
-      this.findOneForm = true;
+    showAddMemberForm() {
+      this.addMemberForm = true;
     },
-    async findOne() {
-      const response = await fetch(`http://localhost:3001/api/member/${this.uidValue}`, {
-        method: 'GET',
+    async submitAddMember() {
+      const response = await fetch('http://localhost:3001/api/member', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        body: JSON.stringify(this.newMember)
       });
       const result = await response.json();
       if (response.ok) {
-        this.findOneMessage = `會員${this.uidValue}:姓名:${result.name},電話:${result.phone}`;
+        this.addMemberMessage = `新增會員成功: ${result.insertedId}`;
       } else {
-        this.findOneMessage = `查詢失敗:${result.error}`;
+        this.addMemberMessage = `新增會員失敗: ${result.error}`;
       }
-    }
+    },
   }
 }
 </script>

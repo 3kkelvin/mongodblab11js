@@ -1,7 +1,5 @@
 <template>
-    <div>
         <button @click="showFindOneForm">查詢單一會員</button>
-  
         <div v-if=findOneForm>
             <h2>查詢單一會員</h2>
             <input type="text" v-model="uidValue" placeholder="會員編號">>
@@ -10,7 +8,7 @@
             <br>
             <p>{{ findOneMessage }}</p>
     </div>
-    </div>
+    
   </template>
   
   <script>
@@ -18,7 +16,6 @@
     name: 'findOne',
     data() {
     return {
-      serverStatus: '',
       findOneForm: false,
       uidValue: '',
       findOneMessage: ''
