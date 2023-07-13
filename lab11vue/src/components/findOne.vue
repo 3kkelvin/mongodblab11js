@@ -1,10 +1,10 @@
 <template>
-        <button @click="showFindOneForm">查詢單一會員</button>
+        <Button type="primary" @click="showFindOneForm">查詢單一會員</Button>
         <div v-if=findOneForm>
             <h2>查詢單一會員</h2>
             <input type="text" v-model="uidValue" placeholder="會員編號">>
             <br>
-            <button @click="findOne">送出</button>
+            <Button type="primary" @click="findOne">送出</Button>
             <br>
             <p>{{ findOneMessage }}</p>
     </div>

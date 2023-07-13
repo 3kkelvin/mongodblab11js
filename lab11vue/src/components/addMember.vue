@@ -1,5 +1,5 @@
 <template>
-    <button @click="showAddMemberForm">新增會員</button>
+    <Button type="primary" @click="showAddMemberForm">新增會員</Button>
     <div v-if=addMemberForm>
       <h2>新增會員</h2>
       <input type="text" v-model="newMember.uid" placeholder="會員編號">
@@ -8,7 +8,7 @@
       <br>
       <input type="text" v-model="newMember.phone" placeholder="會員電話">
       <br>
-      <button @click="submitAddMember">送出</button>
+      <Button type="primary" @click="submitAddMember">送出</Button>
       <br>
       <p>{{ addMemberMessage }}</p>
     </div>

@@ -1,5 +1,5 @@
 <template>
-    <button @click="findAll">查詢所有會員</button>
+    <Button type="primary" @click="findAll">查詢所有會員</Button>
     <div v-if="allMembers">
       <h2>查詢會員</h2>
       <p>{{ findAllMessage }}</p>
