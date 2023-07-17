@@ -32,35 +32,45 @@
                     <div class="layout-logo"></div>
                     <div class="layout-nav">
                         <MenuItem name="1">
-                        <Icon type="md-contact"></Icon>
-                        <Button type="text" ghost @click="setType('showFindOneForm')">查詢單一會員</Button>
+                        <router-link to="/find-one">
+                            <Icon type="md-contact"></Icon>
+                            <Button type="text" ghost @click="setType('showFindOneForm')">查詢單一會員</Button>
+                        </router-link>
                         <!--findOne /-->
                         </MenuItem>
                         <MenuItem name="2">
-                        <Icon type="md-contacts"></Icon>
-                        <Button type="text" ghost @click="findAll">查詢所有會員</Button>
+                        <router-link to="/find-all">
+                            <Icon type="md-contacts"></Icon>
+                            <Button type="text" ghost @click="findAll">查詢所有會員</Button>
+                        </router-link>
                         <!--findAll /-->
                         </MenuItem>
                         <MenuItem name="3">
-                        <Icon type="md-add"></Icon>
-                        <Button type="text" ghost @click="setType('showAddMemberForm')">新增會員</Button>
+                        <router-link to="/add-member">
+                            <Icon type="md-add"></Icon>
+                            <Button type="text" ghost @click="setType('showAddMemberForm')">新增會員</Button>
+                        </router-link>
                         <!--addMember /-->
                         </MenuItem>
                         <MenuItem name="4">
-                        <Icon type="md-arrow-up"></Icon>
-                        <Button type="text" ghost @click="setType('showUpdateMemberForm')">修改會員資料</Button>
+                        <router-link to="/update-member">
+                            <Icon type="md-arrow-up"></Icon>
+                            <Button type="text" ghost @click="setType('showUpdateMemberForm')">修改會員資料</Button>
+                        </router-link>
                         <!--updateMember /-->
                         </MenuItem>
                         <MenuItem name="5">
-                        <Icon type="md-backspace"></Icon>
-                        <Button type="text" ghost @click="setType('showDeleteMemberForm')">刪除會員資料</Button>
+                        <router-link to="/delete-member">
+                            <Icon type="md-backspace"></Icon>
+                            <Button type="text" ghost @click="setType('showDeleteMemberForm')">刪除會員資料</Button>
+                        </router-link>
                         <!--deleteMember /-->
                         </MenuItem>
                     </div>
                 </Menu>
             </Header>
             <Content :style="{ margin: '88px 20px 0', background: '#fff', minHeight: '500px' }">
-                
+
                 <div v-if="type === 'showFindOneForm'">
                     <h2>查詢單一會員</h2>
                     <input type="text" v-model="uidValue" placeholder="會員編號">>
