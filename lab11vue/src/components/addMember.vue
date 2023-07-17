@@ -1,18 +1,3 @@
-<template>
-    <Button type="primary" @click="showAddMemberForm">新增會員</Button>
-    <div v-if=addMemberForm>
-      <h2>新增會員</h2>
-      <input type="text" v-model="newMember.uid" placeholder="會員編號">
-      <br>
-      <input type="text" v-model="newMember.name" placeholder="會員姓名">
-      <br>
-      <input type="text" v-model="newMember.phone" placeholder="會員電話">
-      <br>
-      <Button type="primary" @click="submitAddMember">送出</Button>
-      <br>
-      <p>{{ addMemberMessage }}</p>
-    </div>
-</template>
 
 <script>
 export default {

@@ -1,15 +1,3 @@
-<template>
-    <Button type="primary" @click="showDeleteMemberForm">刪除會員資料</Button>
-    <div v-if="deleteMemberForm">
-        <h2>刪除會員</h2>
-        <input type="text" v-model="deleteUid" placeholder="會員編號">
-        <br>
-        <Button type="primary" @click="deleteMember">送出</Button>
-        <br>
-        <p>{{ deleteMemberMessage }}</p>
-    </div>
-
-</template>
 
 <script>
 export default {

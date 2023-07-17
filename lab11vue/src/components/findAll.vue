@@ -1,16 +1,3 @@
-<template>
-    <Button type="primary" @click="findAll">查詢所有會員</Button>
-    <div v-if="allMembers">
-      <h2>查詢會員</h2>
-      <p>{{ findAllMessage }}</p>
-      <div id="memberContainer">
-        <div v-for="member in members" :key="member.uid">
-          <p>UID: {{ member.uid }}, Name: {{ member.name }}, Phone: {{ member.phone }}</p>
-          <hr>
-        </div>
-      </div>
-    </div>
-</template>
 
 <script>
 export default {
