@@ -1,13 +1,13 @@
 <template>
+  <mainPage />
   <p><!--頁首-->
     Webapi狀態:
     {{ serverStatus }}
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;請直接選擇以下功能
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;請直接選擇以上功能
     或是點選github專案連接查看說明
     <a href="https://github.com/3kkelvin/mongodblab11js" target="_blank" rel="noopener">專案連結</a>.
   </p>
   <!--調用主要頁面-->
-  <mainPage />
 </template>
 
 <script>
