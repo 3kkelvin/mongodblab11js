@@ -1,15 +1,28 @@
 <template>
   <h2>修改會員資料</h2>
-  <input type="text" v-model="updateMember.uid" placeholder="會員編號">
   <br>
-  <input type="text" v-model="updateMember.name" placeholder="會員姓名">
+  <Input v-model="updateMember.uid" placeholder="會員編號" style="width: 300px"/>
   <br>
-  <input type="text" v-model="updateMember.phone" placeholder="會員電話">
+  <br>
+  <Input v-model="updateMember.name" placeholder="會員姓名" style="width: 300px"/>
+  <br>
+  <br>
+  <Input v-model="updateMember.phone" placeholder="會員電話" style="width: 300px"/>
+  <br>
   <br>
   <Button type="primary" @click="submitUpdateMember">送出</Button>
   <br>
-  <p>{{ updateMemberMessage }}</p>
+  <br>
+  <p class="message">{{ updateMemberMessage }}</p>
 </template>
+
+<style>
+.message {
+  font-size: 18px;
+  color: #333;
+}
+</style>
+
 <script>
 export default {
   name: 'updateMember',

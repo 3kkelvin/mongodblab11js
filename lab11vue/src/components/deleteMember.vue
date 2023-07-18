@@ -1,11 +1,21 @@
 <template>
   <h2>刪除會員</h2>
-  <input type="text" v-model="deleteUid" placeholder="會員編號">
   <br>
+  <br>
+  <Input v-model="deleteUid" placeholder="會員編號" style="width: 300px"/>
   <Button type="primary" @click="deleteMember">送出</Button>
   <br>
-  <p>{{ deleteMemberMessage }}</p>
+  <br>
+  <p class="message">{{ deleteMemberMessage }}</p>
 </template>
+
+<style>
+.message {
+  font-size: 18px;
+  color: #333;
+}
+</style>
+
 <script>
 export default {
   name: 'deleteMember',

@@ -1,15 +1,28 @@
 <template>
   <h2>新增會員</h2>
-  <input type="text" v-model="newMember.uid" placeholder="會員編號">
   <br>
-  <input type="text" v-model="newMember.name" placeholder="會員姓名">
+  <Input v-model="newMember.uid" placeholder="會員編號" style="width: 300px"/>
   <br>
-  <input type="text" v-model="newMember.phone" placeholder="會員電話">
+  <br>
+  <Input v-model="newMember.name" placeholder="會員姓名" style="width: 300px"/>
+  <br>
+  <br>
+  <Input v-model="newMember.phone" placeholder="會員電話" style="width: 300px"/>
+  <br>
   <br>
   <Button type="primary" @click="submitAddMember">送出</Button>
   <br>
-  <p>{{ addMemberMessage }}</p>
+  <br>
+  <p class="message">{{ addMemberMessage }}</p>
 </template>
+
+<style>
+.message {
+  font-size: 18px;
+  color: #333;
+}
+</style>
+
 <script>
 export default {
   name: 'addMember',

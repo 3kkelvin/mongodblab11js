@@ -1,24 +1,41 @@
 <template>
   <h2>查詢會員</h2>
-  <p>{{ findAllMessage }}</p>
-  <div id="memberContainer">
-    <div v-for="member in members" :key="member.uid">
-      <p>UID: {{ member.uid }}, Name: {{ member.name }}, Phone: {{ member.phone }}</p>
-      <hr>
-    </div>
-  </div>
+  <br>
+  <p class="message">{{ findAllMessage }}</p>
+  <Table border :columns="columns" :data="data"></Table>
 </template>
+
+<style>
+.message {
+  font-size: 18px;
+  color: #333;
+}
+</style>
+
 <script>
 export default {
   name: 'findAll',
   data() {
     return {
-      member: {
-        uid: '',
-        name: '',
-        phone: ''
-      },
-      findAllMessage: ''
+      findAllMessage: '',
+      columns: [
+        {
+          title: 'UID',
+          key: 'uid',
+          sortable: true
+        },
+        {
+          title: 'Name',
+          key: 'name',
+          sortable: true
+        },
+        {
+          title: 'Phone',
+          key: 'phone',
+          sortable: true
+        }
+      ],
+      data:[]
     };
   },
   mounted() {
@@ -35,7 +52,7 @@ export default {
       const result = await response.json();
       if (response.ok) {
         this.findAllMessage = `現有會員:`;
-        this.members = result;
+        this.data = result;
       } else {
         this.findAllMessage = `查詢會員失敗:`;
       }

@@ -1,11 +1,20 @@
 <template>
-    <h2>查詢單一會員</h2>
-    <input type="text" v-model="uidValue" placeholder="會員編號">>
-    <br>
-    <Button type="primary" @click="findOne">送出</Button>
-    <br>
-    <p>{{ findOneMessage }}</p>
+  <h2>查詢單一會員</h2>
+  <br>
+  <br>
+  <Input v-model="uidValue" placeholder="會員編號" style="width: 300px" />
+  <Button type="primary" @click="findOne">送出</Button>
+  <br>
+  <br>
+  <p class="message">{{ findOneMessage }}</p>
 </template>
+
+<style>
+.message {
+  font-size: 18px;
+  color: #333;
+}
+</style>
 
 <script>
 export default {
