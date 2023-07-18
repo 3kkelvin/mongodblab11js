@@ -1,5 +1,5 @@
 //simport Vue from 'vue';
-import {createRouter,createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import findOne from '../components/findOne.vue';
 import findAll from '../components/findAll.vue';
 import addMember from '../components/addMember.vue';
@@ -37,7 +37,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    
+
     history: createWebHistory(),
     routes,
 })

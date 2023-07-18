@@ -1,22 +1,29 @@
-
+<template>
+  <h2>新增會員</h2>
+  <input type="text" v-model="newMember.uid" placeholder="會員編號">
+  <br>
+  <input type="text" v-model="newMember.name" placeholder="會員姓名">
+  <br>
+  <input type="text" v-model="newMember.phone" placeholder="會員電話">
+  <br>
+  <Button type="primary" @click="submitAddMember">送出</Button>
+  <br>
+  <p>{{ addMemberMessage }}</p>
+</template>
 <script>
 export default {
-name: 'addMember',
-data() {
-return {
-    addMemberForm: false,
-    newMember: {
+  name: 'addMember',
+  data() {
+    return {
+      newMember: {
         uid: '',
         name: '',
         phone: ''
-    },
-    addMemberMessage: ''
-};
-},
-methods: {
-    showAddMemberForm() {
-      this.addMemberForm = ~this.addMemberForm;
-    },
+      },
+      addMemberMessage: ''
+    };
+  },
+  methods: {
     async submitAddMember() {
       const response = await fetch('http://localhost:3001/api/member', {
         method: 'POST',
@@ -32,6 +39,6 @@ methods: {
         this.addMemberMessage = `新增會員失敗: ${result.error}`;
       }
     },
-}
+  }
 };
 </script>

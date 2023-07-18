@@ -1,22 +1,32 @@
-
+<template>
+  <h2>查詢會員</h2>
+  <p>{{ findAllMessage }}</p>
+  <div id="memberContainer">
+    <div v-for="member in members" :key="member.uid">
+      <p>UID: {{ member.uid }}, Name: {{ member.name }}, Phone: {{ member.phone }}</p>
+      <hr>
+    </div>
+  </div>
+</template>
 <script>
 export default {
-name: 'findAll',
-data() {
-return {
-    allMembers: false,
-    member: {
+  name: 'findAll',
+  data() {
+    return {
+      member: {
         uid: '',
         name: '',
         phone: ''
-    },
-    findAllMessage: ''
-};
-},
-methods: {
+      },
+      findAllMessage: ''
+    };
+  },
+  mounted() {
+    this.findAll();
+  },
+  methods: {
     async findAll() {
-        this.allMembers = ~this.allMembers;    
-        const response = await fetch('http://localhost:3001/api/member', {
+      const response = await fetch('http://localhost:3001/api/member', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -30,6 +40,6 @@ methods: {
         this.findAllMessage = `查詢會員失敗:`;
       }
     },
-    },
+  },
 };
 </script>

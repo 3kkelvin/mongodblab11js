@@ -1,22 +1,29 @@
-
+<template>
+  <h2>修改會員資料</h2>
+  <input type="text" v-model="updateMember.uid" placeholder="會員編號">
+  <br>
+  <input type="text" v-model="updateMember.name" placeholder="會員姓名">
+  <br>
+  <input type="text" v-model="updateMember.phone" placeholder="會員電話">
+  <br>
+  <Button type="primary" @click="submitUpdateMember">送出</Button>
+  <br>
+  <p>{{ updateMemberMessage }}</p>
+</template>
 <script>
 export default {
-name: 'updateMember',
-data() {
-return {
-    updateMemberForm: false,
-    updateMember: {
+  name: 'updateMember',
+  data() {
+    return {
+      updateMember: {
         uid: '',
         name: '',
         phone: ''
-    },
-    updateMemberMessage: ''
-};
-},
-methods: {
-    showUpdateMemberForm() {
-      this.updateMemberForm = ~this.updateMemberForm;
-    },
+      },
+      updateMemberMessage: ''
+    };
+  },
+  methods: {
     async submitUpdateMember() {
       const response = await fetch('http://localhost:3001/api/member', {
         method: 'PUT',
@@ -29,9 +36,9 @@ methods: {
       if (response.ok) {
         this.updateMemberMessage = `修改會員${this.updateMember.uid}資料成功`;
       } else {
-        this.aupdateMemberMessage = `修改會員資料失敗: ${result.error}`;
+        this.updateMemberMessage = `修改會員資料失敗: ${result.error}`;
       }
     },
-}
+  }
 };
 </script>
